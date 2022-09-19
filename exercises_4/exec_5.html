@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script src="exec5_solution.js"></script>
+        <script>
+            let arr = new MyArray();
+            let success = true;
+            
+            try {
+                arr.set(0, "First");
+            }
+            catch (err) {
+                alert(`Test of adding an element to an empty array failed: ${err}`);
+                success = false;
+            }
+
+            let value;
+            try {
+                value = arr.get(0);
+                if (value != "First") throw new Error("Wrong content in array.");
+            }
+            catch (err) {
+                alert(`Test of getting an element from a nonempty array failed: ${err}`);
+                success = false;
+            }
+
+            try {
+                value = arr.get(1); // Should throw an exception so the next lines are not executed
+                success = false;
+                alert("Test of getting a non-existing element from an array failed.");
+            }
+            catch (err) { }
+
+            try {
+                arr.set(2, "Third"); // Should throw an exception
+                success = false;
+                alert("Test of setting element at index 2 for one-element array failed - did not throw an exception.");
+            }
+            catch (err) { }
+
+            try {
+                arr.set("stringIndex", "Second");
+                success = false;
+                alert("Test of setting element at index 'stringIndex' failed - did not throw an exception.");
+            }
+            catch (err) { }
+
+            if (success) {
+                alert('All tests passed successfully.')
+            }
+        </script>
+    </body>
+</html>

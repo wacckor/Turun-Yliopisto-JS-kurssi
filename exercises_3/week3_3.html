@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <style>
+            table {
+                border-collapse: collapse;
+            }
+
+            table, th, td {
+                border: 1px solid black;
+            }
+        </style>
+        <script>
+            "use strict"
+
+            /*
+            3. Implement a 2-dimensional array using the Array class. The size of the array is 10x10 elements,
+            and its elements should contain strings of the form “(row, column)” where row and column are the
+            row and column numbers of the element. The upper left corner is “(0, 0)” and the lower right “(9,
+            9)”. Also show your table as an HTML table. You can use the function makeTable of functions.js for
+            representing the table as an html table. For implementing the 2D array you can use an Array whose
+            elements are Arrays.
+            */
+
+            let array = [];
+            for(let i = 0; i < 10; i++){
+                array.push(i);
+                array[i] = [];
+                for(let j = 0; j < 10; j++){
+                    array[i].push(' ' + i + ',' + j + ' ');
+                }
+            }
+            document.body.append(objectsAsTable(array));
+
+            //------------------------------------------------------------------------------------------------------------------------------------------------------
+            //Table maker functions from Mika without the header part:
+
+            function makeTable(data, headerRowTexts = null) {
+                let table = document.createElement('table');
+                /*
+                let thead = document.createElement('thead');
+                table.append(thead);
+                // Construct the header row
+                if (headerRowTexts != null) { // Construct header row
+                    let header = document.createElement('tr');
+                    for(let s of headerRowTexts) {
+                        let thElem = document.createElement('th');
+                        thElem.textContent = s;
+                        header.append(thElem);
+                    }
+                    thead.append(header);
+                }
+                */
+
+                // Construct the non-header rows
+                let tbody = document.createElement('tbody');
+                for (let row of data) {
+                    let trElem = document.createElement('tr');
+                    for (let value of row) {
+                        let tdElem = document.createElement('td');
+                        tdElem.textContent = value;
+                        trElem.append(tdElem);
+                    }
+                    tbody.append(trElem);
+                }
+                table.append(tbody);
+                return table;
+            }
+
+            function objectsAsTable(objArr) {
+                if (objArr.length == 0) {
+                    return makeTable([], null);
+                }
+                let firstObj = objArr[0];
+                let header = Object.keys(firstObj);
+                let arr = objArr.map(e => Object.values(e));
+                return makeTable(arr, header);
+            }
+
+        </script>
+    </body>
+</html>

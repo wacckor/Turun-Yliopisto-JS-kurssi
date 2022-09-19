@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <body>
+       
+        <script>
+            /*
+            4. In the predator-prey simulation one way to represent the world is a grid of a finite size. In this
+            exercise you are asked to write a constructor function that creates an object representing such a grid.
+            The grid should allow storing any number of objects in each of its cells. Furthermore, the cells
+            A 2-dimensional array of size 3x3, represented as an
+            array of arrays.
+            should wrap around: if we go to the right by one cell from the rightmost cell, we arrive at the
+            leftmost cell. This is similar to moving in a spherical world: if we travel far enough east, our final
+            position can be to the west of the starting position. Implement the same wrap-around logic also for
+            the bottom and top borders. For instance, in a 10x10 grid of cells, the cells (0, 0) and (10, 0) are
+            considered to be the same cell. Similarly, the cells (0, -1) and (0, 9) are the same.
+            Write a constructor function Grid that initializes a grid conforming to the above specifications. As
+            parameters the constructor takes the numbers of cells in the horizontal and vertical direction. A grid
+            should be initially empty. The Grid object should allow adding an object to a cell by calling the
+            function grid.addObject(x, y, obj). All objects stored in a given cell can be obtained by calling
+            grid.getObjects(x, y). It should be possible to successfully run the tests of exec4.html.
+            */
+
+            function Grid(x, y){
+                this.x = x;
+                this.y = y;
+                // Definition of the world (same kind of 2d array as in 3. task was):
+                this.world = [];
+                for(let i = 1; i <= this.x; i++){
+                    this.world.push(i);
+                    this.world[i] = [];
+                    for(let j = 1; j <= this.y; j++){
+                        this.world[i].push(j);
+                        this.world[i][j] = [];  
+                    }
+                }
+
+                // wrapping methods separately for x and y (recursive functions to count the too big or too small coordinates which "go around the world" 
+                // and return x,y which are defined in our world[].) This maybe isn't too optimal solution:
+                /*
+                this.wrapX = function(x){
+                    if (x > this.x){
+                        x = x - this.x;
+                        x = this.wrapX(x);   
+                    }
+                    if (x < 1){
+                        x = x + this.x;
+                        x = this.wrapX(x);
+                    }
+                    return x;
+                };
+                this.wrapY = function(y){
+                    if (y > this.y){
+                        y = y - this.y;
+                        y = this.wrapY(y);
+                    }
+                    if (y < 1){
+                        y = y + this.y;
+                        y = this.wrapY(y); 
+                    }                   
+                    return y;
+                };
+                */
+                // I think with % wrapping is faster:
+                this.wrapX = function(x){
+                    if (x > this.x){
+                        x = x % this.x;   
+                    }
+                    if(x == 0){
+                        x = this.x;
+                    }
+                    if (x < 0){
+                        x = (x % this.x) * -1;
+                    }
+                    return x;
+                };
+                this.wrapY = function(y){
+                    if (y > this.y){
+                        y = y % this.y;
+                    }
+                    if (y == 0){
+                        y = this.y;
+                    }
+                    if (y < 0){
+                        y = (y % this.y) * -1; 
+                    }                   
+                    return y;
+                };
+
+                // Get and set methods(they check the coordinates do those "go around the world", or not by calling the wrapping methods):
+                this.getObject = function(x,y){
+                    x = this.wrapX(x);
+                    y = this.wrapY(y);
+                    return this.world[x][y];
+                };
+
+                this.addObject = function(x,y,object){
+                    x = this.wrapX(x);
+                    y = this.wrapY(y);
+                    this.world[x][y].push(object);
+                };
+                
+            }
+
+            //------------------------------------------------------------------------------------------------------------------------------------------------------
+            //Test from Mika:
+            grid = new Grid(100, 100);
+            grid.addObject(0, 0, "a");
+            grid.addObject(100, 100, "b");
+            grid.addObject(50, 50, "c");
+            grid.addObject(150, 50, "d");
+            grid.addObject(50, 150, "e");
+            grid.addObject(-250, 150, "f");
+            let boxOneObjs = Array.from(grid.getObject(0, 0));
+            let boxTwoObjs = Array.from(grid.getObject(-50, 250));
+            boxOneOK = boxOneObjs.length == 2 && boxOneObjs.includes("a") && boxOneObjs.includes("b");
+            boxTwoOK = boxTwoObjs.length == 4 && boxTwoObjs.includes("c") && boxTwoObjs.includes("d") && boxTwoObjs.includes("e") && boxTwoObjs.includes("f");
+            if (boxOneOK && boxTwoOK) {
+                alert(`Tests passed. Box (0, 0) contents (${boxOneObjs}), box (50, 50) contents ${boxTwoObjs}`);
+            }
+            else {
+                alert(`Tests failed. Box (0, 0) contents (${boxOneObjs}), expected (a,b). Box (50, 50) contents (${boxTwoObjs}), expected (c,d,e,f)`);
+            }
+        </script>
+    </body>
+</html>

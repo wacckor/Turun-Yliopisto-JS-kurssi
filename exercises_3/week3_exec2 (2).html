@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        
+        <script>
+            "use strict";
+         
+
+                let employees = [];
+                for(let i = 1; i <= 100; i++) {
+                    let newEmployee = {
+                        name: `Employee ${i}`,
+                        salary: Math.round(20000 + 80000*Math.random()),
+                        [Symbol.toPrimitive](hint) {
+                            return `Name: ${this.name}, salary: ${this.salary}`;
+                        }
+                    };
+                    employees.push(newEmployee);
+                }
+                //--------------------------------------------------------------------------------------------------------------------------------------------------------
+                //Tha call of Mika's table maker function and append to the HTML document:
+                document.body.append(objectsAsTable(employees));
+
+                //(a) Find the employee with the highest salary and print the name and salary of the employee.
+                
+                /*Version 1 without array functions:
+
+                function maxSalary(object){
+                    let employee = {};
+                    let maxSalary = 0;
+                    for(let elem in object){
+                        
+                        if (employees[elem].salary > maxSalary){
+                            maxSalary = employees[elem].salary;
+                            employee = employees[elem];
+                        }
+                    }
+                    return employee;
+                }
+                let richestEmployee = maxSalary(employees);
+                alert(richestEmployee);
+                */
+                //Version 2 with find function:
+                let maxSalary = 0;
+                for(let elem in employees){
+                    if(employees[elem].salary > maxSalary){
+                        maxSalary = employees[elem].salary;
+                    }
+                }
+                let richestEmployee = employees.find(item => item.salary == maxSalary);
+                alert("The employee with the highest salary is: " + richestEmployee);
+
+                //-------------------------------------------------------------------------------------------------------------------------------------------------
+
+                //(b) Find all employees whose salary would exceed the current average salary, if all salaries were
+                //increased by 5 %. Show the names of the employees and their salaries after the raise in a table form.
+                //You may use the function objectsAsTable of functions.js for creating the table. Note: you should not
+                //change the salaries of the employees, just check what they would be after a 5 % raise.
+                
+                //First make an array from the salaries:
+                let salaries = [];
+                for(let elem in employees){
+                    salaries.push(employees[elem].salary) 
+                }
+                //Then count the average of salaries:
+                let moneySum = salaries.reduce((sum, current) => sum + current);
+                let averageSalary = moneySum / employees.length;   
+                
+                //Then filter:
+                let overAverage = employees.filter(item => item.salary * 1.05 >= averageSalary);
+               
+                
+                //Then print:
+                document.body.append(document.createElement("BR"));
+                document.body.append(document.createTextNode('The list of employees whose salary would exceed the current average salary, if all salaries were increased by 5 %:'))
+                document.body.append(document.createElement("BR"));
+                document.body.append(objectsAsTable(overAverage));
+
+
+                //---------------------------------------------------------------------------------------------------------------------------------------------------
+                //functions from Mika:
+                function makeTable(data, headerRowTexts = null) {
+                    let table = document.createElement('table');
+                    
+                    let thead = document.createElement('thead');
+                    table.append(thead);
+                    // Construct the header row
+                    if (headerRowTexts != null) { // Construct header row
+                        let header = document.createElement('tr');
+                        for(let s of headerRowTexts) {
+                            let thElem = document.createElement('th');
+                            thElem.textContent = s;
+                            header.append(thElem);
+                        }
+                        thead.append(header);
+                    }
+
+                    // Construct the non-header rows
+                    let tbody = document.createElement('tbody');
+                    for (let row of data) {
+                        let trElem = document.createElement('tr');
+                        for (let value of row) {
+                            let tdElem = document.createElement('td');
+                            tdElem.textContent = value;
+                            trElem.append(tdElem);
+                        }
+                        tbody.append(trElem);
+                    }
+                    table.append(tbody);
+                    return table;
+                }
+                function objectsAsTable(objArr) {
+                    if (objArr.length == 0) {
+                    return makeTable([], null);
+                    }
+                    let firstObj = objArr[0];
+                    let header = Object.keys(firstObj);
+                    let arr = objArr.map(e => Object.values(e));
+                    return makeTable(arr, header);
+                }
+               
+
+        </script>
+    </body>
+</html>

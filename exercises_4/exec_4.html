@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script src="exec4.js"></script>
+        <script>
+            "use strict";
+            let o = new Organism(10, 50, 50, 20);
+            let [age, mass, locX, locY, maxAge] = [o.getAge(), o.getMass(), o.getXLocation(), o.getYLocation(), o.getMaxAge()];
+            let success = checkValues([0, 10, 50, 50, 20], [age, mass, locX, locY, maxAge]);
+
+            let p = new Plant(3, 20, 20, 50);
+            [age, mass, locX, locY, maxAge] = [p.getAge(), p.getMass(), p.getXLocation(), p.getYLocation(), p.getMaxAge()];
+            success = success && checkValues([0, 3, 20, 20, 50], [age, mass, locX, locY, maxAge]);
+
+            let a = new Animal(20, 34, 59, 15);
+            [age, mass, locX, locY, maxAge] = [a.getAge(), a.getMass(), a.getXLocation(), a.getYLocation(), a.getMaxAge()];
+            success = success && checkValues([0, 20, 34, 59, 15], [age, mass, locX, locY, maxAge]);
+           
+         
+            console.log(`Plant is ${(p.isAlive) ? "alive" : "dead"} and it's mass is ${p.getMass()}.`);
+            // Try to make some changes
+            o.setLocation(74, 22);
+            o.setMass(-5);
+            for(let i = 0; i < 5; i++) {
+                o. performTimeStep();
+            }
+            [age, mass, locX, locY] = [o.getAge(), o.getMass(), o.getXLocation(), o.getYLocation()];
+            success = success && checkValues([5, 10, 74, 22], [age, mass, locX, locY]);
+
+            //Plant alive and mass test:
+            p.performTimeStep();
+            console.log(`Plant is ${(p.isAlive) ? "alive" : "dead"} and it's mass is ${p.getMass()}.`);
+
+            for(let i = 0; i < 51; i++){
+                p.performTimeStep();
+            }
+            console.log(`Plant is ${(p.isAlive) ? "alive" : "dead"} and it's mass is ${p.getMass()}.`);
+
+            //Animal move test:
+            for(let i = 0; i < 8; i++){
+                a.move();
+            }
+            //Animal alive test:
+            for(let i = 0; i < 16; i++){
+                a.performTimeStep();
+            }
+            console.log(`Animal is ${(a.isAlive) ? "alive" : "dead"} and it's mass is ${a.getMass()}.`);
+           
+            if (success) {
+                alert("Property tests passed. Method tests can be seen in the console.");
+            }
+            
+            function checkValues(expected, actual) { // We use this function to display error messages
+                for (let i = 0; i < expected.length; i++) {
+                    if (expected[i] != actual[i]) {
+                        alert(`Wrong values: expected [${expected}], actual [${actual}]`);
+                        return false;
+                    }
+                }
+                return true;
+            }
+        </script>
+    </body>
+</html>

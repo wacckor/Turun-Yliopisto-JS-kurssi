@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script src="exec3_solution.js"></script>
+        <script>
+            "use strict";
+            let o = new Organism(10, 50, 50);
+            let [age, mass, locX, locY] = [o.getAge(), o.getMass(), o.getXLocation(), o.getYLocation()];
+            let success = checkValues([0, 10, 50, 50], [age, mass, locX, locY]);
+            // Try to make some changes
+            o.setLocation(74, 22);
+            o.setMass(-5);
+            for(let i = 0; i < 5; i++) {
+                o.increaseAge();
+            }
+            [age, mass, locX, locY] = [o.getAge(), o.getMass(), o.getXLocation(), o.getYLocation()];
+            success = success && checkValues([5, 10, 74, 22], [age, mass, locX, locY]);
+
+            if (success) {
+                alert("All tests passed.");
+            }
+            
+            function checkValues(expected, actual) { // We use this function to display error messages
+                for (let i = 0; i < expected.length; i++) {
+                    if (expected[i] != actual[i]) {
+                        alert(`Wrong values: expected [${expected}], actual [${actual}]`);
+                        return false;
+                    }
+                }
+                return true;
+            }
+        </script>
+    </body>
+</html>

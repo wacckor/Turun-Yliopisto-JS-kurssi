@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        .sup {
+            position: relative;
+            bottom: 1ex; 
+            font-size: 65%;
+        }
+    </style>
+
+    <body>
+        <table id="table">
+            <tr><td>Weight: </td><td><input type="text" id="weight_input"></td><td>kg</td></tr>
+            <tr><td>Height: </td><td><input type="text" id="height_input"></td><td>cm</td></tr>
+        </table>
+
+        <button id="table-button" onclick="BMI(weight_input.value, height_input.value)">Count BMI</button>
+        <br>
+        <span id="result"></span>
+       
+
+        <script>
+            "use strict";
+
+            function BMI(weight, height){
+                let bmi = weight / (height / 100)**2;
+                result.innerHTML = "Your BMI value is " + bmi.toFixed(1) + " kg/m" +  "<span class=sup>2</span>"  + ".";
+            }
+
+        </script>
+    </body>
+</html>

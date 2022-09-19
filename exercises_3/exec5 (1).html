@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            "use strict"
+            let arr = [24, 38, 16, 16, 33,  7, 16, 19, 37,  7,  2, 14, 36, 23, 25, 15, 13,
+                       37, 39, 20, 18, 16, 47,  0, 48, 28,  8, 43, 38, 19, 26, 36, 41,  9,
+                       24, 23,  5, 39,  2, 25, 46, 35,  1,  6, 18, 17, 37, 38, 39, 18, 23,
+                       45, 34, 22, 27, 28, 34,  5, 38, 19, 24, 30, 48, 12, 43, 30, 33, 22,
+                       6,  0, 49, 42, 33,  2, 46, 41,  8,  3, 22, 41, 30,  9, 47, 48, 20,
+                       2, 39, 46, 36, 11, 46, 37, 12,  4, 36, 23,  2, 18, 32, 36];
+            
+
+            // My solution here:
+            /*
+            5. In the file exec5.html you can find an array of numbers. Make a function that counts, for each
+            unique value of an array, how many times it appears in the array. Add the results of the function to
+            an html page as a table whose left column contains the unique values of the array and the right
+            column their occurrence counts in the array of exec5.html. The table should be sorted into
+            ascending order by the values. You may use the function makeTable (in functions.js) for creating the
+            html table.
+            */
+
+            function unique(arr) {
+                //First I made a simple array called "unique" with every number of arr once in it and then sorted it:
+
+                let unique = Array.from(new Set(arr));
+                unique.sort( (a, b) => a - b );
+                
+                //Then I made a "numbers" array which is going to contain as much "number" named objects as the "unigue" array's lenght. 
+                //Every object has properties "num" (which is number of the unique array) and "amount" of the num. 
+                //"amount" is basically 0 for every number:
+
+                let numbers = [];
+                for(let i in unique){
+                        let number = {
+                            num : unique[i],
+                            amount : 0
+                        }
+                    numbers.push(number);
+                }
+                
+                //Then compare the original "arr" array's values to the "numbers" array's "number" object's "num" property's value. :/
+                //if it was the same, "numbers" array's "number" object's "amount" property's value increases by one. 
+                //(Because of the double loops it increases two times, this is the reason of += 0.5.) :/
+
+                for(let i in numbers){
+                    for(let j in numbers[i]){
+                        let am = "amount";
+                        let num = "num";
+                        for (let z in arr){
+                            if(arr[z] == numbers[i][num]){
+                                numbers[i][am] += 0.5;  
+                            }
+                        }
+                        //console.log(numbers[i][am]); 
+                        
+                    }
+                }
+                
+                return numbers;
+            }
+            
+            
+            document.body.append(objectsAsTable(unique(arr)));
+            //------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            function makeTable(data, headerRowTexts = null) {
+                let table = document.createElement('table');
+                
+                let thead = document.createElement('thead');
+                table.append(thead);
+                // Construct the header row
+                if (headerRowTexts != null) { // Construct header row
+                    let header = document.createElement('tr');
+                    for(let s of headerRowTexts) {
+                        let thElem = document.createElement('th');
+                        thElem.textContent = s;
+                        header.append(thElem);
+                    }
+                    thead.append(header);
+                }
+                
+                // Construct the non-header rows
+                let tbody = document.createElement('tbody');
+                for (let row of data) {
+                    let trElem = document.createElement('tr');
+                    for (let value of row) {
+                        let tdElem = document.createElement('td');
+                        tdElem.textContent = value;
+                        trElem.append(tdElem);
+                    }
+                    tbody.append(trElem);
+                }
+                table.append(tbody);
+                return table;
+            }
+
+            /**
+             * Make a table representation of the array of objects. Note: this function
+             * can generate an acceptable-looking output table only if the objects of
+             * objArr are simple enough. For instance, nested objects may lead to table
+             * cells with too much contents or to cells of the form [object Object] if
+             * string conversion methods have not been defined for those inner objects.
+             * 
+             * @param {Array[Object]} objArr 
+             */
+            function objectsAsTable(objArr) {
+                if (objArr.length == 0) {
+                    return makeTable([], null);
+                }
+                let firstObj = objArr[0];
+                let header = Object.keys(firstObj);
+                let arr = objArr.map(e => Object.values(e));
+                return makeTable(arr, header);
+            }
+        </script>
+    </body>
+</html>

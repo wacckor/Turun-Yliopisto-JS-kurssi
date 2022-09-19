@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script src = "exec1.js"></script>
+        <script>
+            "use strict";
+
+            let p1 = new Person("180699-1018");
+            let p2 = new Person("130908A406T");
+
+            // Below is the "old code" that should work once you have modified the Person class.
+            // Note that month numbering starts from zero in date.getMonth()
+            let success = true;
+            
+            if (p1.birthDate.getFullYear() != 1999 || p1.birthDate.getMonth() != 5 || p1.birthDate.getDate() != 18) {
+                alert(`Wrong birth date for person with PIC ${p1.PIC}: ${p1.birthDate}`);
+                success = false;
+            }
+            if(p1.PICend != "1018") {
+                alert(`Wrong PIC end for person with PIC  ${p1.PIC}: ${p1.PICend}`);
+                success = false;
+            }
+            if (p2.birthDate.getFullYear() != 2008 || p2.birthDate.getMonth() != 8 || p2.birthDate.getDate() != 13) {
+                alert(`Wrong birth date for person with PIC ${p2.PIC}: ${p2.birthDate}`);
+                success = false;
+            }
+            if(p2.PICend.toUpperCase() != "406T") {
+                alert(`Wrong PIC end for person with PIC  ${p2.PIC}: ${p2.PICend}`);
+                success = false;
+            }
+            if (success) {
+                alert("All tests passed successfully!");
+            }
+        </script>
+    </body>
+</html>

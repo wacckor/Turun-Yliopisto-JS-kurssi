@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            "use strict"
+
+            /*1. In the predator-prey simulation project we need animal objects that move and interact in the
+            world. In this exercise we partially implement one very simple animal. The object has as attributes
+            its x- and y-coordinate (integers) and species (string). Furthermore, the animal should have a
+            function “move” which causes the animal to move to any location whose x- and y-coordinates differ
+            from the current one by at most one unit. There are then nine possible locations to move to,
+            including the possibility of staying in the current location. As the starting position of the animal, use
+            (50, 50), set species to “wolf”, implement the “move” function and execute it several times,
+            showing the results (it is enough to print the locations as a string, graphical presentation is not
+            required). You may implement the animal as an object literal but if you want to, you can also create
+            a constructor function or a class. */
+
+            let animal = {
+                x : 50,
+                y : 50,
+                species : "wolf",
+
+                move : function(){
+                    let newX = Math.floor(Math.random() * (this.x + 2 - this.x + 1)) + this.x -1;
+                    let newY = Math.floor(Math.random() * (this.y + 2 - this.y + 1)) + this.y -1;
+                    this.x = newX;
+                    this.y = newY;
+                    alert(this.species + " has moved to x = "+ this.x + ", y = " + this.y + "."); 
+                    
+                }
+            };
+
+            //executes 8 times:
+            for(let i = 0; i < 8; i++){
+                animal.move();
+            }
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Exercise 4</title>
+    </head>
+
+    <body>
+
+        
+        
+        <ul id="list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+
+        <table id="table">
+            <tr><td>1</td><td>2</td><td>3</td></tr>
+            <tr><td>4</td><td>5</td><td>6</td></tr>
+        </table>
+
+        <button id="table-button" onclick="hideTable()">Hide table</button>
+        <script>
+            "use strict";
+
+            function hideTable() { // Event handler for hiding table
+                let t = document.getElementById("table");
+                t.hidden = true;
+            }
+
+            // Add a new button for hiding the list
+            let listButton = document.createElement("button");
+            listButton.textContent = "Hide list";
+            document.body.append(document.createElement("BR"),listButton);
+            // Add an event handler for hiding the list
+            listButton.onclick = function() {
+                let l = document.getElementById("list");
+                l.hidden = true;
+            }
+        </script>
+    </body>
+</html>

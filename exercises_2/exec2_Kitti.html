@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>The document of exercise 2</title>
+        <style>
+            table, th, td {
+                border-collapse: collapse;
+                border: 1px solid black;}
+        </style>
+    </head>
+    
+    <body>
+        <h1>Introduction</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In justo justo, volutpat et diam vel, mollis euismod nisl. Aenean ornare sed enim
+        sed suscipit. Donec luctus est a tellus tempus, id lobortis neque ultricies. Nulla non turpis non ligula consectetur auctor. Cras sit amet
+        elementum ex. Aliquam sapien magna, bibendum ut dictum a, commodo non nisl. Phasellus lectus arcu, pellentesque in ex id, iaculis imperdiet
+        lectus. Aliquam mollis, purus vel volutpat faucibus, lectus metus hendrerit libero, ac vehicula felis eros vel mauris. Lorem ipsum dolor sit
+        amet, consectetur adipiscing elit. Aliquam mi diam, congue sed mi eget, euismod interdum nulla.</p>
+
+        <p>Sed odio urna, rhoncus at sem placerat, tincidunt congue magna. Nam convallis mollis libero, non aliquam justo blandit a. Curabitur varius
+        faucibus porttitor. Nullam mollis arcu sit amet metus euismod lobortis. Vivamus id mi at ex commodo tempor. Suspendisse tempor ut mauris et
+        facilisis. In hac habitasse platea dictumst. Morbi ac quam sapien. Duis fermentum, magna eget aliquet ornare, nibh velit consequat sapien,
+        nec rhoncus nisl urna non nulla. Quisque efficitur vehicula felis sit amet condimentum. Phasellus dapibus, ante at gravida maximus, massa
+        urna viverra dolor, sed facilisis quam tellus vel nibh. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at tellus accumsan,
+        venenatis neque ac, consequat est. Fusce vitae pulvinar lacus, vitae tincidunt eros. Nam luctus congue tellus ut mattis. Morbi massa magna,
+        sollicitudin quis rutrum in, pretium et nibh.</p>
+
+        <p>Aenean eleifend felis in dolor sollicitudin, nec congue ipsum faucibus. Pellentesque finibus neque ac libero posuere luctus. Vestibulum
+        imperdiet interdum velit ac gravida. Donec eu pharetra enim. Donec semper tellus at elit consequat, in faucibus nunc tincidunt. Fusce viverra
+        gravida odio, vel aliquam libero luctus in. Duis vel erat ut nulla volutpat lacinia. In nisl erat, gravida in ligula in, malesuada tristique
+        ipsum. Vivamus ornare, quam sit amet pulvinar lacinia, metus lectus cursus orci, vitae egestas libero diam ut tortor. Phasellus viverra arcu
+        ac felis elementum mattis. Nulla suscipit efficitur finibus. Pellentesque et augue felis. Aenean sagittis dapibus nibh, sed consectetur augue.
+        Ut ut dapibus ante, blandit consectetur elit. Nullam id lectus ac tellus ullamcorper congue.</p>
+
+        <h2>Problem description</h2>
+        In this article we discuss the following topics, which we consider very important:
+
+        <ul>
+            <li>Gibberish is poorly understood by most people</li>
+            <li>Gibberish is not considered a valid language</li>
+            <li>The language departments of universities do not teach gibberish</li>
+            <li>Answering exam questions in the gibberish language leads to a failing grade</li>
+            <li>Job applications written in gibberish language are rejected</li>
+        </ul>
+
+        <p>We argue that gibberish should be officially accepted as a language. We expect there to be counterarguments related to, e.g., gibberish being
+        poorly defined at best. While we acknowledge such concerns...</p>
+
+        <h2>The way forward</h2>
+        <p>We suggest the following measures to be taken to stregthen the position of gibberish:</p>
+
+        <ol>
+            <li>More funding for the research of gibberish</li>
+            <li>Establish support groups for professional gibberish speakers</li>
+            <li>Increase political pressure to accept gibberish as an official language</li>
+            <li>Make gibberish the only official language in our country</li>
+            <li>Agree on punitive measures to those who still use the old languages</li>
+        </ol>
+
+        We expect these measures to be taken in the order given above. The expected benefits are great, as shown in the table below. The
+        cost-benefit analyses were done using our in-house simulation program called PRNG. The simulation was run repeatedly until
+        we got the results we wanted.
+
+        <table>
+            <thead>
+                <tr> <th>Language</th> <th>Effect on GNP growth</th> <th>Effect on employment rate</th> <th>Effect on IQ</th> </tr>
+            </thead>
+            <tbody>
+                <tr> <th>English</th> <td>-0.16</td> <td>0.01</td> <td>-9.65</td>  </tr>
+                <tr> <th>Swedish</th> <td>-0.26</td> <td>-0.08</td> <td>1.39</td> </tr>
+                <tr> <th>Gibberish</th> <td>0.81</td> <td>0.93</td> <td>8.43</td> </tr>
+            </tbody>
+        </table>
+
+        <p>Based on these results, it seems clear that gibberish should be the language of choice in all civilised countries.</p>
+
+        <h2>Discussion</h2>
+        <p>We showed the benefits of adopting gibberish as the only accepted language. The simulation results, using repeated PRNG, were
+            so clear that we are confident that we should go straight to the implementation phase, instead of conducting human
+            experiments... </p>
+
+        <script>
+            "use strict"
+            // My solutions here:
+
+            //a)Lisää dokumentin loppuun otsake (<h2>) “Reviewer comments” ja sen alle teksti “This is a good article, accepted.”
+            let element = document.createElement("h2");
+            element.innerHTML = "Reviewer comments";
+            let textNode = document.createTextNode("This is a good article, accepted.");
+            document.body.append(element, textNode);
+
+            //b)Poista taulukosta toinen rivi. Otsikkoriviä ei lasketa riviksi.
+            let table = document.body.getElementsByTagName('tbody');
+            let rows = table[0].getElementsByTagName('tr');
+            rows[1].remove();
+            
+            //c)Muuta järjestetyn listan viimeisen alkion tekstiksi “Have fun”.
+            let list2 = document.body.getElementsByTagName('ol');
+            list2[0].lastElementChild.innerHTML = "Have fun";
+            
+            //d)Korvaa ensimmäinen järjestämätön lista (<ul>) sisällöltään vastaavalla järjestetyllä listalla (<ol>)
+        
+            let ulList1 = document.body.getElementsByTagName('ul')[0];
+            //It makes a new list <ol> and fill it with the same content as <ul>, then replace it.
+            let olList1 = document.createElement("ol");
+            
+            function getListContent(list) {
+                let fragment = new DocumentFragment();
+
+                for(let i = 0; i < list.children.length; i++) {
+                    let li = document.createElement('li');
+                    let text = list.children[i].innerHTML;
+                    li.append(text);
+                    fragment.append(li);
+                }
+                return fragment;
+            } 
+            olList1.append(getListContent(ulList1));
+
+            ulList1.replaceWith(olList1);
+
+        </script>
+    </body>
+    
+</html>

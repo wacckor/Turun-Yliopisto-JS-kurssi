@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script src = "exec_2.js"></script>
+        <script>
+            "use strict";
+
+            let grid = new Grid3D(10, 5, 20);
+            grid.setValue(1, 2, 3, 100);
+            let d = new Date();
+            grid.setValue(9, 4, 19, d);
+
+            let success = true;
+            if (grid.getValue(0, 0, 0) != null) {
+                alert(`Wrong value at (0, 0, 0). Expected null, got ${grid.getValue(0, 0, 0)}`);
+                success = false;
+            }
+            if (grid.getValue(1, 2, 3) != 100) {
+                alert(`Wrong value at (1, 2, 3). Expected 100, got ${grid.getValue(1, 2, 3)}`);
+                success = false;
+            }
+            if (grid.getValue(9, 4, 19) != d) {
+                alert(`Wrong value at (9, 4, 19). Expected ${d}, got ${grid.getValue(9, 4, 19)}`);
+                success = false;
+            }
+            if (success) {
+                alert("All tests performed successfully");
+            }
+        </script>
+    </body>
+</html>
